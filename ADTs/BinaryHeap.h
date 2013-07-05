@@ -22,6 +22,7 @@ class BinaryHeap{
         void insertElement(T element);
         T deleteElement();
         T peek()const;
+        bool isEmpty()const;
         
     private:
         std::vector<T> elements;
@@ -33,7 +34,6 @@ class BinaryHeap{
         int getLeftIndex(int index)const;
         int getRightIndex(int index)const;
         int getParentIndex(int index)const;
-        bool isEmpty()const;
 };
 
 

@@ -17,6 +17,8 @@
 #include "Queue.cpp"
 #include "BinaryHeap.h"
 #include "BinaryHeap.cpp"
+#include "PriorityQueue.h"
+#include "PriorityQueue.cpp"
 
 template<class T>
 void testStackCopyConstructor(Stack<T> aStack){
@@ -113,10 +115,11 @@ void testBinaryHeap(){
     bhint.traverseBFS();
     bhint.print();
     std::cout << "Peeking at empty binary heap\n";
-    if(bhint.peek() == NULL)
-        std::cout << "NULL\n";
-    else
-        std::cout << bhint.peek();
+    if(bhint.peek() != NULL){
+        std::cout<< bhint.peek();
+    }
+    std::cout << "Deleting a empty binary heap\n";
+    bhint.deleteElement();
     
     std::cout << "Testing Binary Heap with integers\n";
     bhint.insertElement(1);
@@ -150,10 +153,43 @@ void testBinaryHeap(){
     bhchar.print();
     
 }
+template<class T>
+void testPriorityQueueCopyConstructor(PriorityQueue<T> copy){
+    std::cout << "Adding 10 to the Priority Queue in the function" << std::endl;
+    copy.enQueue(10);
+    copy.print();
+}
+void testPriorityQueue(){
+    std::cout << "\n****Testing Priority Queue****\n";
+    PriorityQueue<int> pqint;
+    
+    std::cout << "Printing Empty Priority Queue\n";
+    pqint.print();
+    
+    std::cout << "DeQueuing from an empty Priority Queue\n";
+    pqint.deQueue();
+
+    
+    std::cout << "Adding 2,3,7,1,6,9,0,4,5,8 to the queue\n";
+    int numbers[] = {2,3,7,1,6,9,0,4,5,8};
+    for(int i = 0; i < 10; i++){
+        pqint.enQueue(numbers[i]);
+    }
+    pqint.print();
+    
+    std::cout << "Deleting the first element:" << pqint.deQueue() << std::endl;
+    pqint.print();
+    
+    testPriorityQueueCopyConstructor(pqint);
+    std::cout << "Printing the Priority Queue after the function\n";
+    pqint.print();
+    
+}
 int main(int argc, char** argv) {
 	testStack();
 	testQueue();
     testBinaryHeap();
+    testPriorityQueue();
 
     return 0;
 }

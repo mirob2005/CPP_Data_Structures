@@ -37,6 +37,10 @@ void BinaryHeap<T>::insertElement(T element){
 }
 template<class T>
 T BinaryHeap<T>::deleteElement(){
+    if(isEmpty()){
+        std::cout << "EMPTY!\n";
+        return NULL;
+    }
     T returnMe = elements.front();
     elements.front() = elements.back();
     elements.pop_back();
@@ -86,10 +90,13 @@ void BinaryHeap<T>::swapElements(int index1, int index2){
 }
 template<class T>
 T BinaryHeap<T>::peek()const{
-    if(isEmpty())
+    if(isEmpty()){
+        std::cout << "EMPTY!\n";
         return NULL;
-    else
+    }
+    else{
         return elements.front();
+    }
 }
 template<class T>
 void BinaryHeap<T>::print()const{
