@@ -1,11 +1,11 @@
 /*
  * Michael Robertson
  * mirob2005@gmail.com
- * Completed: 07/06/13
+ * Completed: 07/07/13
  *
  * File:   main.cpp
  * Sorts the array using the implemented sorting algorithms.
- * Only selection and insertion sorts implemented so far.
+ * Only merge, selection, and insertion sorts implemented so far.
  * 
  */
 
@@ -15,6 +15,7 @@
 #include <string.h>
 #include "insertionSort.cpp"
 #include "selectionSort.cpp"
+#include "mergeSort.cpp"
 
 using namespace std;
 
@@ -56,6 +57,22 @@ int main(int argc, char** argv) {
     selectionSort(numbers, size);
     
     cout << "Numbers After Selection Sort:\n";
+    for(int i = 0; i < size; i++){
+        cout << numbers[i] << " ";
+    }
+    cout << endl << endl;
+    
+    memcpy(numbers,original,sizeof(original));
+    
+    cout << "Numbers Before Merge Sort:\n";
+    for(int i = 0; i < size; i++){
+        cout << numbers[i] << " ";
+    }
+    cout << endl << endl;
+    
+    mergeSort(numbers, size);
+    
+    cout << "Numbers After Merge Sort:\n";
     for(int i = 0; i < size; i++){
         cout << numbers[i] << " ";
     }
