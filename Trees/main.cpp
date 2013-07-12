@@ -14,8 +14,14 @@
 using namespace std;
 
 int main(int argc, char** argv) {
-    BST<int> bst();
+    BST<int>bst;
     
+    bst.addData(5);
+    bst.addData(6);
+    bst.addData(2);
+    bst.addData(1);
+    bst.addData(7);
+    bst.traverseBFS();
     return 0;
 }
 

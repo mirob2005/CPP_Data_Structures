@@ -4,7 +4,7 @@
  * Completed: 06/30/13
  *
  * File:   Queue.h
- * Not Yet Implemented
+ * 
  */
 
 #include "Node.h"

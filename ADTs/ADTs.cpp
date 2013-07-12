@@ -4,7 +4,7 @@
  * Completed: --/--/--
  *
  * File:   ADTs.h
- * Only Stack, Queue, and Binary Heap Implemented
+ * Stack, Queue, Binary Heap, and Priority Queue Implemented
  */
 
 /* 

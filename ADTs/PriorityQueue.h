@@ -4,7 +4,7 @@
  * Completed: 07/05/13
  *
  * File:   PriorityQueue.h
- * Not Yet Implemented
+ * 
  */
 
 #include <iostream>
