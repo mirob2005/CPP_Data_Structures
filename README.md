@@ -16,6 +16,18 @@ CPP_Data_Structures
 *Types:*
 - Vector Structure
 
+## *Hash Table Operations:*
+### Usage: Run HashTable/main.cpp to test the hashTable class.
+- add
+- updateValue
+- delete
+- deleteAll
+- lookUp
+- getHash
+
+### *Types:*
+- Separate Chaining Collision resolution using Linked Lists
+
 ## *Sorting:*
 ### Usage: Run Sorting/main.cpp to run all implemented sorting methods.
 
@@ -46,5 +58,4 @@ CPP_Data_Structures
 
 ## *TODO:*
 - Graphs
-- Hash Tables
 - Trees
