@@ -10,13 +10,12 @@
  */
 
 #include <iostream>
+#include "BST.h"
 using namespace std;
 
-/*
- * 
- */
 int main(int argc, char** argv) {
-
+    BST<int> bst();
+    
     return 0;
 }
 
