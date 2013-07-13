@@ -8,15 +8,19 @@
  * 
  */
 
-
 #ifndef TREENODE_H
 #define	TREENODE_H
+
+#include <iostream>
+
 template<class T>
 struct treeNode{
     treeNode(T dataIn, treeNode<T> *leftPtr, treeNode<T> *rightPtr, treeNode<T> *parentPtr):
     data(dataIn), left(leftPtr), right(rightPtr), parent(parentPtr) {
-        
-    } 
+    }
+    ~treeNode(){
+        std::cout << "Deleting: " << data << std::endl;
+    }
     T data;
     treeNode<T> *left;
     treeNode<T> *right;

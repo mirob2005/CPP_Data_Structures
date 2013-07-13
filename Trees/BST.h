@@ -7,11 +7,12 @@
  * Not Yet Implemented
  * 
  */
-#include "treeNode.h"
-#include "Queue.h"
 
 #ifndef BST_H
 #define	BST_H
+
+#include "treeNode.h"
+#include "Queue.h"
 
 template<class T>
 class BST{
@@ -38,6 +39,8 @@ class BST{
         void traverseDFSpreorder(treeNode<T> *curRoot);
         void traverseDFSinorder(treeNode<T> *curRoot);
         void traverseDFSpostorder(treeNode<T> *curRoot);
+        void deleteTree(treeNode<T> *curRoot);
+        BST<T> copyTree(treeNode<T> *curRoot, treeNode<T> *copyRoot);
 };
 template<class T>
 BST<T>::BST(): root(NULL){
@@ -45,6 +48,7 @@ BST<T>::BST(): root(NULL){
 }
 template<class T>
 BST<T>::~BST(){
+    std::cout << "Deconstructor Called:\n";
     deleteTree();
 }
 template<class T>
@@ -108,6 +112,8 @@ bool BST<T>::findData(T data, treeNode<T> *curRoot){
 }
 template<class T>
 T BST<T>::findMin(){
+    if(root==NULL)
+        return 0;
     treeNode<T> *curRoot = root;
     while(curRoot->left!=NULL)
         curRoot = curRoot->left;
@@ -115,6 +121,8 @@ T BST<T>::findMin(){
 }
 template<class T>
 T BST<T>::findMax(){
+    if(root==NULL)
+        return 0;
     treeNode<T> *curRoot = root;
     while(curRoot->right!=NULL)
         curRoot = curRoot->right;
@@ -123,6 +131,10 @@ T BST<T>::findMax(){
 template<class T>
 void BST<T>::traverseBFS(){
     std::cout << "BFS: ";
+    if(root==NULL){
+        std::cout << "Tree Empty\n";
+        return;
+    }
     Queue< treeNode<T>* > q;
     q.enQueue(root);
     treeNode<T> *curNode = q.deQueue();
@@ -144,6 +156,10 @@ void BST<T>::traverseBFS(){
 template<class T>
 void BST<T>::traverseDFSpreorder(){
     std::cout << "DFS preorder: ";
+    if(root==NULL){
+        std::cout << "Tree Empty\n";
+        return;
+    }
     traverseDFSpreorder(root);
     std::cout << std::endl;
 }
@@ -160,6 +176,10 @@ void BST<T>::traverseDFSpreorder(treeNode<T> *curRoot){
 template<class T>
 void BST<T>::traverseDFSinorder(){
     std::cout << "DFS inorder: ";
+    if(root==NULL){
+        std::cout << "Tree Empty\n";
+        return;
+    }
     traverseDFSinorder(root);
     std::cout << std::endl;
 }
@@ -176,6 +196,10 @@ void BST<T>::traverseDFSinorder(treeNode<T> *curRoot){
 template<class T>
 void BST<T>::traverseDFSpostorder(){
     std::cout << "DFS postorder: ";
+    if(root==NULL){
+        std::cout << "Tree Empty\n";
+        return;
+    }
     traverseDFSpostorder(root);
     std::cout << std::endl;
 }
@@ -192,6 +216,10 @@ void BST<T>::traverseDFSpostorder(treeNode<T> *curRoot){
 template<class T>
 void BST<T>::printBranches(){
     std::cout << "BST Branches:\n";
+    if(root==NULL){
+        std::cout << "Tree Empty\n";
+        return;
+    }
     Queue< treeNode<T>* > q;
     q.enQueue(root);
     treeNode<T> *curNode = q.deQueue();
@@ -227,11 +255,34 @@ void BST<T>::printBranches(){
 }
 template<class T>
 void BST<T>::deleteTree(){
-    
+    if(root!=NULL){
+        deleteTree(root);
+        root = NULL;
+    }
+}
+template<class T>
+void BST<T>::deleteTree(treeNode<T> *curRoot){
+    if(curRoot->left!=NULL){
+        deleteTree(curRoot->left);
+    }
+    if(curRoot->right!=NULL){
+        deleteTree(curRoot->right);
+    }
+    delete curRoot;
 }
 template<class T>
 BST<T> BST<T>::copyTree(){
-    
+    BST<T> copy;
+    if(root!=NULL){
+        std::cout << "Copying Root: "<< root->data << std::endl;
+        copy.root = new treeNode<T>(root->data,NULL,NULL,NULL);
+        copyTree(root,copy.root);
+    }
+    return copy;
+}
+template<class T>
+BST<T> BST<T>::copyTree(treeNode<T> *curRoot, treeNode<T> *copyRoot){
+
 }
 #endif	/* BST_H */
 

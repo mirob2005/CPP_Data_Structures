@@ -10,11 +10,11 @@
  * Throws an EmptyQueue exception when deQueuing an empty Queue
  */
 
-#include <iostream>
-#include <stdlib.h>
-
 #ifndef QUEUE_H
 #define	QUEUE_H
+
+#include <iostream>
+#include <stdlib.h>
 
 class EmptyQueue{
     
