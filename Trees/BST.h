@@ -40,7 +40,7 @@ class BST{
         void traverseDFSinorder(treeNode<T> *curRoot);
         void traverseDFSpostorder(treeNode<T> *curRoot);
         void deleteTree(treeNode<T> *curRoot);
-        BST<T> copyTree(treeNode<T> *curRoot, treeNode<T> *copyRoot);
+        void copyTree(treeNode<T> *curRoot, treeNode<T> *newRoot);
 };
 template<class T>
 BST<T>::BST(): root(NULL){
@@ -48,12 +48,15 @@ BST<T>::BST(): root(NULL){
 }
 template<class T>
 BST<T>::~BST(){
-    std::cout << "Deconstructor Called:\n";
+    std::cout << "Deconstructor Called\n";
     deleteTree();
 }
 template<class T>
 BST<T>::BST(const BST<T> &copyBST){
-    
+    if(copyBST.root!=NULL){
+        root = new treeNode<T>(copyBST.root->data,NULL,NULL,NULL);
+        copyTree(copyBST.root,root);
+    }
 }
 template<class T>
 void BST<T>::addData(T data){
@@ -274,15 +277,24 @@ template<class T>
 BST<T> BST<T>::copyTree(){
     BST<T> copy;
     if(root!=NULL){
-        std::cout << "Copying Root: "<< root->data << std::endl;
+//        std::cout << "Copying Root: "<< root->data << std::endl;
         copy.root = new treeNode<T>(root->data,NULL,NULL,NULL);
+        
         copyTree(root,copy.root);
     }
     return copy;
 }
 template<class T>
-BST<T> BST<T>::copyTree(treeNode<T> *curRoot, treeNode<T> *copyRoot){
-
+void BST<T>::copyTree(treeNode<T> *curRoot, treeNode<T> *newRoot){
+    if(curRoot->left!=NULL){
+//        std::cout << "Copying: " << curRoot->left->data << std::endl;
+        newRoot->left = new treeNode<T>(curRoot->left->data,NULL,NULL,newRoot);
+        copyTree(curRoot->left,newRoot->left);
+    }
+    if(curRoot->right!=NULL){
+//        std::cout << "Copying: " << curRoot->right->data << std::endl;
+        newRoot->right = new treeNode<T>(curRoot->right->data,NULL,NULL,newRoot);
+        copyTree(curRoot->right,newRoot->right);
+    }
 }
 #endif	/* BST_H */
-

@@ -13,6 +13,13 @@
 #include "BST.h"
 using namespace std;
 
+template<class T>
+void testCopyConstructor(BST<T> copyBST){
+    cout << "Adding 3 to BST in function: \n";
+    copyBST.addData(3);
+    copyBST.printBranches();
+}
+
 int main(int argc, char** argv) {
     BST<int>bst;
     
@@ -36,9 +43,9 @@ int main(int argc, char** argv) {
     cout << "Value 6 is present?: " << bst.findData(6) << endl;
     cout << "Value 7 is present?: " << bst.findData(7) << endl;
     
-//    cout << "Copying Tree\n";
-//    BST<int> copy = bst.copyTree();
-//    copy.printBranches();
+    cout << "\nCopying Tree\n";
+    BST<int> copy = bst.copyTree();
+    copy.printBranches();
     
     cout << "\nDeleting original Tree:\n";
     bst.deleteTree();
@@ -48,8 +55,8 @@ int main(int argc, char** argv) {
     bst.traverseDFSinorder();
     bst.traverseDFSpostorder();
     bst.printBranches();
-//    cout << "\nPrinting copied tree:\n";
-//    copy.printBranches();
+    cout << "\nPrinting copied tree:\n";
+    copy.printBranches();
     
     cout <<"\nAdding new nodes: \n";
     bst.addData(11);
@@ -63,6 +70,12 @@ int main(int argc, char** argv) {
     cout << "Value 5 is present?: " << bst.findData(5) << endl;
     cout << "Value 6 is present?: " << bst.findData(6) << endl;
     cout << "Value 7 is present?: " << bst.findData(7) << endl;
+    
+    cout << "\nTesting copy constructor:\n";
+    testCopyConstructor(bst);
+    cout << "Printing BST after function:\n";
+    bst.printBranches();
+    
     return 0;
 }
 
