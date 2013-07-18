@@ -1,10 +1,9 @@
 /*
  * Michael Robertson
  * mirob2005@gmail.com
- * Completed: 7/--/13
+ * Completed: 7/17/13
  *
  * File:   BST.h
- * Not Yet Implemented
  * 
  */
 
@@ -34,7 +33,11 @@ class BST{
         BST<T> copyTree();
     private:
         treeNode<T> *root;
-        void addData(T data, treeNode<T> *curRoot, treeNode<T> *parent);
+        void addData(T data, treeNode<T> *curRoot);
+        void deleteData(T data, treeNode<T> *curRoot);
+        void deleteNode1Child(treeNode<T> *deleteMe, treeNode<T> *replace, treeNode<T> *parent);
+        void deleteNode2Children(treeNode<T> *curRoot);
+        treeNode<T>* returnInorderPredescessor(treeNode<T> *curRoot);
         bool findData(T data, treeNode<T> *curRoot);
         void traverseDFSpreorder(treeNode<T> *curRoot);
         void traverseDFSinorder(treeNode<T> *curRoot);
@@ -64,14 +67,14 @@ void BST<T>::addData(T data){
         root = new treeNode<T>(data, NULL, NULL, NULL);
     }
     else{
-        addData(data, root, NULL);
+        addData(data, root);
     }
 }
 template<class T>
-void BST<T>::addData(T data, treeNode<T> *curRoot, treeNode<T> *parent){
+void BST<T>::addData(T data, treeNode<T> *curRoot){
     if(data > curRoot->data){
         if(curRoot->right!=NULL){
-            addData(data,curRoot->right, curRoot);
+            addData(data,curRoot->right);
         }
         else{
             curRoot->right = new treeNode<T>(data, NULL, NULL, curRoot);
@@ -79,7 +82,7 @@ void BST<T>::addData(T data, treeNode<T> *curRoot, treeNode<T> *parent){
     }
     else if(data < curRoot->data){
         if(curRoot->left!=NULL){
-            addData(data,curRoot->left, curRoot);
+            addData(data,curRoot->left);
         }
         else{
             curRoot->left = new treeNode<T>(data, NULL, NULL, curRoot);
@@ -92,7 +95,147 @@ void BST<T>::addData(T data, treeNode<T> *curRoot, treeNode<T> *parent){
 }
 template<class T>
 void BST<T>::deleteData(T data){
-    
+    if(root!=NULL)
+        deleteData(data, root);
+}
+template<class T>
+void BST<T>::deleteData(T data, treeNode<T> *curRoot){
+    if(data > curRoot->data){
+        if(curRoot->right!=NULL){
+            deleteData(data,curRoot->right);
+        }
+        else{
+            std::cout << "Data: " << data << " does not exist!\n";
+        }
+    }
+    else if(data < curRoot->data){
+        if(curRoot->left!=NULL){
+            deleteData(data,curRoot->left);
+        }
+        else{
+            std::cout << "Data: " << data << " does not exist!\n";
+        }        
+    }
+    else{
+        //Root Node
+        if(curRoot->parent==NULL){
+            //No Children
+            if(curRoot->left == NULL && curRoot->right == NULL){
+                delete root;
+                root = NULL;
+            }
+            //1 Child
+            else if(curRoot->left==NULL){
+                treeNode<T> *replace = root->right;
+                delete root;
+                root = replace;
+            }
+            else if(curRoot->right==NULL){
+                treeNode<T> *replace = root->left;
+                delete root;
+                root = replace;
+            }
+            //2 Children
+            else{
+                deleteNode2Children(root);
+            }
+        }
+        //Leaf Node
+        else if(curRoot->left == NULL && curRoot->right == NULL){
+            treeNode<T> *parent = curRoot->parent;
+            if(parent->left == curRoot){
+                parent->left = NULL;
+            }
+            else{
+                parent->right = NULL;
+            }
+            delete curRoot;
+        }
+        //Internal node with 1 child
+        else if(curRoot->left == NULL){
+            deleteNode1Child(curRoot,curRoot->right,curRoot->parent);
+        }
+        else if(curRoot->right == NULL){
+            deleteNode1Child(curRoot,curRoot->left,curRoot->parent);
+        }
+        //Internal node with 2 children
+        else{
+            deleteNode2Children(curRoot);
+        }
+    }
+}
+template<class T>
+void BST<T>::deleteNode1Child(treeNode<T> *deleteMe, treeNode<T> *replace, treeNode<T> *parent){
+    if(parent->left == deleteMe){
+        parent->left = replace;
+    }
+    else{
+        parent->right = replace;
+    }
+    replace->parent = parent;
+    delete deleteMe;
+}
+template<class T>
+void BST<T>::deleteNode2Children(treeNode<T>* curRoot){
+    treeNode<T> *replace = returnInorderPredescessor(curRoot);
+    // Inorder predescessor has no children
+    if(replace->left == NULL && replace->right == NULL){
+        T temp = curRoot->data;
+        curRoot->data = replace->data;
+        replace->data = temp;
+        if(replace->parent->left == replace){
+            replace->parent->left = NULL;
+        }
+        else{
+            replace->parent->right = NULL;
+        }
+        delete replace;
+    }
+    // Inorder predescessor has a child (MUST be a left child)
+    else{
+        //If it's parent is node to be deleted (simpler case)
+        if(replace->parent == curRoot){
+            treeNode<T> *right = curRoot->right;
+            //Root
+            if(curRoot->parent == NULL){
+                delete curRoot;
+                root = replace;
+                root->parent = NULL;
+                root->right = right;
+            }
+            else{
+                treeNode<T> *parent = curRoot->parent;
+                if(parent->left == curRoot){
+                    delete curRoot;
+                    parent->left = replace;
+                }
+                else{
+                    delete curRoot;
+                    parent->right = replace;
+                }
+                replace->parent = parent;
+                replace->right = right;
+            }
+        }
+        else{
+            treeNode<T> *repPar = replace->parent;
+            T temp = curRoot->data;
+            curRoot->data = replace->data;
+            replace->data = temp;
+            treeNode<T> *repLeft = replace->left;
+            repPar->right = repLeft;
+            repLeft->parent = repPar;
+            delete replace;
+        }
+    }
+}
+template<class T>
+treeNode<T>* BST<T>::returnInorderPredescessor(treeNode<T>* curRoot){
+    treeNode<T> *pred = curRoot->left;
+    while(pred->right!=NULL){
+        pred = pred->right;
+    }
+    return pred;
 }
 template<class T>
 bool BST<T>::findData(T data){

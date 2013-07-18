@@ -3,8 +3,8 @@
  * mirob2005@gmail.com
  * Completed: 7/17/13
  *
- * File:   intTester.cpp
- * Tests the basic operations of BST.h using ints
+ * File:   charTester.cpp
+ * Tests the basic operations of BST.h using chars
  * 
  */
 
@@ -14,21 +14,21 @@ using namespace std;
 
 template<class T>
 void testCopyConstructor(BST<T> copyBST){
-    cout << "Adding 3 to BST in function: \n";
-    copyBST.addData(3);
+    cout << "Adding d to BST in function: \n";
+    copyBST.addData('d');
     copyBST.printBranches();
 }
 
 int main(int argc, char** argv) {
-    BST<int>bst;
+    BST<char>bst;
     
-    bst.addData(5);
-    bst.addData(6);
-    bst.addData(2);
-    bst.addData(1);
-    bst.addData(8);
-    bst.addData(4);
-    bst.addData(7);
+    bst.addData('e');
+    bst.addData('f');
+    bst.addData('b');
+    bst.addData('a');
+    bst.addData('h');
+    bst.addData('d');
+    bst.addData('g');
     bst.traverseBFS();
     bst.traverseDFSpreorder();
     bst.traverseDFSinorder();
@@ -37,20 +37,20 @@ int main(int argc, char** argv) {
     bst.printBranches();
     cout << "Max Value: " << bst.findMax() << endl;
     cout << "Min Value: " << bst.findMin() << endl;
-    cout << "Value 0 is present?: " << bst.findData(0) << endl;
-    cout << "Value 5 is present?: " << bst.findData(5) << endl;
-    cout << "Value 6 is present?: " << bst.findData(6) << endl;
-    cout << "Value 7 is present?: " << bst.findData(7) << endl;
+    cout << "Value z is present?: " << bst.findData('z') << endl;
+    cout << "Value e is present?: " << bst.findData('e') << endl;
+    cout << "Value f is present?: " << bst.findData('f') << endl;
+    cout << "Value g is present?: " << bst.findData('g') << endl;
     
     cout << "\nCopying Tree\n";
-    BST<int> copy = bst.copyTree();
+    BST<char> copy = bst.copyTree();
     copy.printBranches();
     
     cout << "Deleting root/internal/leaf nodes from copy:\n";
-    copy.deleteData(5);
-    copy.deleteData(10);
-    copy.deleteData(7);
-    copy.deleteData(2);
+    copy.deleteData('e');
+    copy.deleteData('m');
+    copy.deleteData('g');
+    copy.deleteData('b');
     cout << "Copy after deletes:\n";
     copy.printBranches();
     cout << "Original after copy deletes:\n";
@@ -68,23 +68,25 @@ int main(int argc, char** argv) {
     copy.printBranches();
     
     cout <<"\nAdding new nodes: \n";
-    bst.addData(11);
-    bst.addData(1);
-    bst.addData(2);
-    bst.addData(0);
+    bst.addData('y');
+    bst.addData('b');
+    bst.addData('a');
+    bst.addData('c');
     bst.printBranches();
     cout << "Max Value: " << bst.findMax() << endl;
     cout << "Min Value: " << bst.findMin() << endl;
-    cout << "Value 0 is present?: " << bst.findData(0) << endl;
-    cout << "Value 5 is present?: " << bst.findData(5) << endl;
-    cout << "Value 6 is present?: " << bst.findData(6) << endl;
-    cout << "Value 7 is present?: " << bst.findData(7) << endl;
+    cout << "Value a is present?: " << bst.findData('a') << endl;
+    cout << "Value e is present?: " << bst.findData('e') << endl;
+    cout << "Value f is present?: " << bst.findData('f') << endl;
+    cout << "Value g is present?: " << bst.findData('g') << endl;
     
     cout << "\nTesting copy constructor:\n";
     testCopyConstructor(bst);
     cout << "Printing BST after function:\n";
     bst.printBranches();
     
+    
+
+    
     return 0;
 }
-
