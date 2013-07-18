@@ -3,7 +3,7 @@
  * mirob2005@gmail.com
  * Completed: 7/17/13
  *
- * File:   intTester.cpp
+ * File:   main.cpp
  * Tests the basic operations of BST.h using ints
  * 
  */
