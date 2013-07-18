@@ -16,6 +16,20 @@ CPP_Data_Structures
 *Types:*
 - Vector Structure
 
+## *Binary Search Tree Operations:*
+### Usage: Run Trees/main.cpp, Trees/charTester.cpp, or Trees/deleteTester.cpp to test the operations of BST.
+- addData - recursive
+- findData - recursive
+- deleteData - recursive
+- traverseBFS - iterative (uses a queue)
+- traverseDFSpreorder - recursive
+- traverseDFSinorder - recursive
+- traverseDFSpostorder - recursive
+- copyTree - recursive
+- deleteTree - recursive
+- findMin - iterative
+- findMax - iterative
+
 ## *Hash Table Operations:*
 ### Usage: Run HashTable/main.cpp to test the hashTable class.
 - add
