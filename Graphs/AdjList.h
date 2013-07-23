@@ -12,19 +12,18 @@
 #include <string>
 #include <vector>
 #include "Vertex.h"
-using namespace std;
 
 class VertexNotFound{
 public:
-    string name;
-    VertexNotFound(string nameIn): name(nameIn){
+    std::string name;
+    VertexNotFound(std::string nameIn): name(nameIn){
         
     }
     ~VertexNotFound(){
         
     }
     void printMsg(){
-        cout << "Vertex: " << name << " does not exist!\n";
+        std::cout << "Vertex: " << name << " does not exist!\n";
     }
 };
 
@@ -32,17 +31,19 @@ class AdjList{
 public:
     AdjList();
     ~AdjList();
-    void addVertex(string name);
-    void deleteVertex(string name);
-    void addEdge(string src, string dest);
-    void deleteEdge(string src, string dest);
-    void traverseBFS()const;
-    void traverseDFS()const;
+    void addVertex(std::string name);
+    void deleteVertex(std::string name);
+    void addEdge(std::string src, std::string dest);
+    void deleteEdge(std::string src, std::string dest);
+    void traverseBFS(std::string src)const;
+    void traverseDFS();
     void printGraph()const;
     void deleteGraph();
 private:
-    vector<Vertex*> vertexList;
-    Vertex* findVertex(string name)const;
+    std::vector<Vertex*> vertexList;
+    bool cycleExists;
+    Vertex* findVertex(std::string name)const;
+    void DFS(Vertex *src);
 };
 
 
