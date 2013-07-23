@@ -8,6 +8,7 @@
  */
 
 #include "AdjList.h"
+#include "Queue.h"
 #include <iostream>
 using namespace std;
 
@@ -51,8 +52,37 @@ void AdjList::deleteGraph(){
 }
 void AdjList::traverseBFS(string src)const{
     try{
+        if(vertexList.empty()){
+            cout << "Graph is Empty!\n";
+            return;
+        }
         Vertex *source = findVertex(src);
+        for(vector<Vertex*>::const_iterator p = vertexList.begin(); p!=vertexList.end(); ++p){
+            (*p)->visit = Undiscovered;
+        }
         
+        Queue<Vertex*> bfsq;
+        bfsq.enQueue(source);
+        source->visit = Discovered;
+        source->distance = 0;
+        Vertex *curVertex = bfsq.deQueue();
+        while(curVertex!=NULL){
+            for(vector<Vertex*>::const_iterator p = curVertex->next.begin(); p!=curVertex->next.end(); ++p){
+                if((*p)->visit==Undiscovered){
+                    (*p)->visit = Discovered;
+                    (*p)->distance = curVertex->distance + 1;
+                    bfsq.enQueue(*p);
+                }
+            }
+            curVertex->visit = Explored;
+            cout << "Vertex: " << curVertex->name << " Distance: " << curVertex->distance << endl;
+            try{
+                curVertex = bfsq.deQueue();
+            }
+            catch(EmptyQueue e){
+                break;
+            }
+        }
     }
     catch(VertexNotFound e){
         cout << "Can't traverse graph BFS from source: " << src << ", ";

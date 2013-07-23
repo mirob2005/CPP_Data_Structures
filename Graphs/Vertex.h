@@ -20,7 +20,7 @@ enum Visited{
 };
 
 struct Vertex{
-    Vertex(std::string nameIn): name(nameIn), visit(Undiscovered){
+    Vertex(std::string nameIn): name(nameIn), visit(Undiscovered), distance(0){
         
     }
     ~Vertex(){
@@ -38,7 +38,7 @@ struct Vertex{
     std::string name;
     std::vector<Vertex*> next;
     Visited visit;
-    
+    unsigned int distance;
 };
 
 

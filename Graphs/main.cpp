@@ -43,7 +43,7 @@ int main(int argc, char** argv) {
     al.traverseBFS("1");
     
     cout << "\nTraversing Graph in BFS from invalid source:\n";
-    al.traverseBFS("3");
+    al.traverseBFS("A");
     
     cout << "\nTraversing Graph in DFS:\n";
     al.traverseDFS();
