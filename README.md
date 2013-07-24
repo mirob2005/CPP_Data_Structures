@@ -40,7 +40,7 @@ CPP Data Structures
 - Supports directed graphs only (or add an edge for both direction for undirected).
 - Weighted edges currently not implemented in this C++ version.
 
-- *Operations:*
+*Operations:*
 - addVertex
 - addEdge
 - deleteVertex
@@ -48,7 +48,8 @@ CPP Data Structures
 - copyGraph
 - deleteVertices
 
-- *Algorithm:*
+*Algorithms:*
+
 *Breadth First Search*
 - traverseBFS - gives the distance to each reachable vertex (shortest path)
 
