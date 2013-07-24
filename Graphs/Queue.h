@@ -2,10 +2,10 @@
  * Michael Robertson
  * mirob2005@gmail.com
  * Completed: 06/30/13
- * Modified: 07/12/13
+ * Modified: 07/24/13
  *
  * File:   Queue.h
- * Modified for use in BST.h (added exception and included Node struct in file)
+ * Modified for use in AdjList.cpp (added exception and included Node struct in file)
  * Used for BFS traversal.
  * Throws an EmptyQueue exception when deQueuing an empty Queue
  */
@@ -73,9 +73,8 @@ Queue<T>::Queue(const Queue& copyQueue){
 }
 template<class T>
 Queue<T>::~Queue(){
-    T next;
     while(!empty())
-        next = deQueue();
+        deQueue();
 }
 template<class T>
 bool Queue<T>::empty() const{

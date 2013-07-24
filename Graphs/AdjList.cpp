@@ -1,9 +1,10 @@
 /*
  * Michael Robertson
  * mirob2005@gmail.com
- * Completed: 7/--/13
+ * Completed: 7/24/13
  *
  * File:   AdjList.cpp
+ * Adjacency List graph structure. Supports directed edges.
  * 
  */
 
