@@ -38,12 +38,15 @@ public:
     void traverseBFS(std::string src)const;
     void traverseDFS();
     void printGraph()const;
-    void deleteGraph();
+    void deleteVertices();
+    bool isDAG();
+    AdjList* copyGraph();
 private:
     std::vector<Vertex*> vertexList;
     bool cycleExists;
     Vertex* findVertex(std::string name)const;
     void DFS(Vertex *src);
+    void traverseCopy(Vertex *src, Vertex *copyV, AdjList *copy);
 };
 
 

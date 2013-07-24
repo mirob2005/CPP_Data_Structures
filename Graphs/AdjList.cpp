@@ -16,9 +16,9 @@ AdjList::AdjList(): cycleExists(false){
     
 }
 AdjList::~AdjList(){
-    cout << "Deconstructor Called!\n";
-    for(vector<Vertex*>::iterator p = vertexList.begin(); p!=vertexList.end(); ++p){
-        delete *p;
+    cout << "Destructor Called!\n";
+    if(!vertexList.empty()){
+        deleteVertices();
     }
 }
 void AdjList::addVertex(string name){
@@ -92,8 +92,13 @@ void AdjList::deleteEdge(string src, string dest){
         e.printMsg();
     }
 }
-void AdjList::deleteGraph(){
-    
+void AdjList::deleteVertices(){
+    if(!vertexList.empty()){
+        for(vector<Vertex*>::iterator p = vertexList.begin(); p!=vertexList.end(); ++p){
+            delete *p;
+        }
+        vertexList.clear();
+    }
 }
 void AdjList::traverseBFS(string src)const{
     try{
@@ -154,7 +159,7 @@ void AdjList::DFS(Vertex* src){
             DFS(*p);
         }
         //Back Edge
-        else if((*p)->visit = Discovered){
+        else if((*p)->visit == Discovered){
             cycleExists = true;
         }
         //Forward/Cross Edge
@@ -169,10 +174,45 @@ void AdjList::printGraph()const{
         cout << *(*p);
     }
 }
+bool AdjList::isDAG(){
+    cout << "Traversing DFS to check for cycles:";
+    cycleExists = false;
+    traverseDFS();
+    return (!cycleExists);
+}
 Vertex* AdjList::findVertex(string name)const{
     for(vector<Vertex*>::const_iterator p = vertexList.begin(); p!=vertexList.end(); ++p){
         if(name.compare((*p)->name)==0)
             return *p;
     }
     throw VertexNotFound(name);
+}
+AdjList* AdjList::copyGraph(){
+    AdjList *copy = new AdjList;
+    
+    for(vector<Vertex*>::const_iterator p = vertexList.begin(); p!=vertexList.end(); ++p){
+        (*p)->visit = Undiscovered;
+    }
+    for(vector<Vertex*>::const_iterator p = vertexList.begin(); p!=vertexList.end(); ++p){
+        if((*p)->visit==Undiscovered){
+            copy->vertexList.push_back(new Vertex((*p)->name));
+            traverseCopy(*p,copy->vertexList.back(),copy);
+        }
+    }
+    return copy;
+}
+void AdjList::traverseCopy(Vertex *orig, Vertex *copyV, AdjList *copy){
+    orig->visit = Discovered;
+    for(vector<Vertex*>::const_iterator p = orig->next.begin(); p!=orig->next.end(); ++p){
+        //Tree Edge
+        if((*p)->visit==Undiscovered){
+            copy->vertexList.push_back(new Vertex((*p)->name));
+            copyV->next.push_back(copy->vertexList.back());
+            traverseCopy(*p,copy->vertexList.back(),copy);
+        }
+        else{
+            copyV->next.push_back(copy->findVertex((*p)->name));
+        }
+    }
+    orig->visit = Explored;
 }
