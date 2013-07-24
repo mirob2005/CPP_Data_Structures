@@ -1,4 +1,4 @@
-CPP_Data_Structures
+CPP Data Structures
 ===================
 
 ## *ADTS:*
@@ -29,6 +29,36 @@ CPP_Data_Structures
 - deleteTree - recursive
 - findMin - iterative
 - findMax - iterative
+
+## *Graphs:*
+### Usage: To run the provided test code in main.cpp, use the following commands:
+- make
+- ./AdjList
+
+### *Adjacency List:*
+- Vertices are stored in a vector. Each vertex has a vector of next pointers to neighoring/adjacent vertices. 
+- Supports directed graphs only (or add an edge for both direction for undirected).
+- Weighted edges currently not implemented in this C++ version.
+
+- *Operations:*
+- addVertex
+- addEdge
+- deleteVertex
+- deleteEdge
+- copyGraph
+- deleteVertices
+
+- *Algorithm:*
+*Breadth First Search*
+- traverseBFS - gives the distance to each reachable vertex (shortest path)
+
+*Depth First Search*
+- DAG test
+- traverseDFS
+- Classification of edges into (in comments): 
+1)Tree Edges 
+2)Back Edges 
+3)Forward/Cross Edges
 
 ## *Hash Table Operations:*
 ### Usage: Run HashTable/main.cpp to test the hashTable class.
@@ -70,6 +100,3 @@ CPP_Data_Structures
 - O(n^2) - best/AVG/worst case performance
 - O(1) auxilary - worst case space complexity
 
-## *TODO:*
-- Graphs
-- Trees
