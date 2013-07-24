@@ -42,10 +42,55 @@ void AdjList::addEdge(string src, string dest){
     }
 }
 void AdjList::deleteVertex(string name){
-    
+    try{
+        bool found = false;
+        Vertex *deleteMe;
+        for(vector<Vertex*>::iterator p = vertexList.begin(); p!=vertexList.end(); ++p){
+            if(name.compare((*p)->name)==0){
+                deleteMe = *p;
+                vertexList.erase(p);
+                found = true;
+                break;
+            }
+        }
+        if(!found) throw VertexNotFound(name);
+        
+        for(vector<Vertex*>::iterator p = vertexList.begin(); p!=vertexList.end(); ++p){
+            for(vector<Vertex*>::iterator n = (*p)->next.begin(); n!=(*p)->next.end(); ++n){
+                if(name.compare((*n)->name)==0){
+                    (*p)->next.erase(n);
+                    break;
+                }
+            }
+        }
+        delete deleteMe;
+    }
+    catch(VertexNotFound e){
+        cout << "Cant delete vertex "<<name<< ": ";
+        e.printMsg();
+    }
 }
 void AdjList::deleteEdge(string src, string dest){
-    
+    try{
+        bool found = false;
+        Vertex *s = findVertex(src);
+        Vertex *d = findVertex(dest);
+
+        for(vector<Vertex*>::iterator p = s->next.begin(); p!=s->next.end(); ++p){
+            if(*p==d){
+                found = true;
+                s->next.erase(p);
+                break;
+            }
+        }
+        if(!found){
+            cout << "Edge from " << src << " to " << dest << " doesn't exist!\n";
+        }
+    }
+    catch(VertexNotFound e){
+        cout << "Cant delete edge from " << src << " to " << dest << ": ";
+        e.printMsg();
+    }
 }
 void AdjList::deleteGraph(){
     
