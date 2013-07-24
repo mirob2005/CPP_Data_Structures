@@ -1,9 +1,5 @@
 # *Graphs:*
 
-## Usage: To run the provided test code in main.cpp, use the following commands:
-### make
-### ./AdjList
-
 <table>
   <tr>
     <th>Type</th><th>Storage</th><th>Add Vertex</th><th>Add Edge</th><th>Remove Vertex</th><th>Remove Edge</th><th>Query</th>
@@ -26,6 +22,11 @@
 - Vertices are stored in a vector. Each vertex has a vector of next pointers to neighoring/adjacent vertices. 
 - Supports directed graphs only (or add an edge for both direction for undirected).
 - Weighted edges currently not implemented in this C++ version.
+
+
+### Usage: To run the provided test code in main.cpp, use the following commands:
+- make
+- ./AdjList
 
 ### *Operations:*
 - addVertex
